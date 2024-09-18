@@ -1,0 +1,14 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: hello-world-pipeline-run
+spec:
+  pipelineRef:
+    name: hello-world-pipeline
+  params:
+    - name: git-url
+      value: "https://github.com/bartholomaeuss/tekton-pipeline-go-build"
+    - name: git-revision
+      value: "main"
+    - name: branch
+      value: "main"

@@ -1,0 +1,26 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: git-push-task
+spec:
+  params:
+    - name: git-url
+      type: string
+      description: "The git repository URL"
+    - name: branch
+      type: string
+      description: "The branch to push the changes"
+  steps:
+    - name: configure-git
+      image: alpine/git
+      script: |
+        #!/bin/sh
+        git config --global user.name "Bartholomaeuss"
+    - name: commit-binary
+      image: alpine/git
+      script: |
+        #!/bin/sh
+        cd /workspace/source
+        git add hello-world-binary
+        git commit -m "Add compiled binary"
+        git push $(params.git-url) HEAD:$(params.branch)

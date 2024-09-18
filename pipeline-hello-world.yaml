@@ -1,0 +1,34 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: hello-world-pipeline
+spec:
+  params:
+    - name: git-url
+      type: string
+      description: "The git repository URL"
+    - name: git-revision
+      type: string
+      description: "The branch or commit to checkout"
+    - name: branch
+      type: string
+      description: "The branch to push the changes"
+  tasks:
+    - name: compile-go
+      taskRef:
+        name: go-build-task
+      params:
+        - name: git-url
+          value: "$(params.git-url)"
+        - name: git-revision
+          value: "$(params.git-revision)"
+    - name: push-binary
+      taskRef:
+        name: git-push-task
+      params:
+        - name: git-url
+          value: "$(params.git-url)"
+        - name: branch
+          value: "$(params.branch)"
+      runAfter:
+        - compile-go
