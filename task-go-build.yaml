@@ -15,6 +15,7 @@ spec:
       image: alpine/git
       script: |
         #!/bin/sh
+        git config --global --add safe.directory /workspace/source
         git clone $(params.git-url) /workspace/source
         cd /workspace/source
         git checkout $(params.git-revision)

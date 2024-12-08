@@ -7,7 +7,7 @@ spec:
     name: hello-world-pipeline
   params:
     - name: git-url
-      value: "https://github.com/bartholomaeuss/tekton-pipeline-go-build"
+      value: "https://github.com/bartholomaeuss/hello-go"
     - name: git-revision
       value: "main"
     - name: branch
